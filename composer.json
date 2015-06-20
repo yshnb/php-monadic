@@ -1,0 +1,15 @@
+{
+    "name": "yshnb/php-monadic",
+    "description": "Monadic type programming in PHP",
+    "authors": [
+        {
+            "name": "Yoshinobu Wakamatsu",
+            "email": "y.wak35@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {"": "lib/"}
+    }
+}
