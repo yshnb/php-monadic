@@ -20,3 +20,22 @@ $maybe = $maybe->bind(function($val) {
 });
 echo $maybe->get(); // null
 ```
+
+### Either
+
+```
+<?php
+
+use Monadic\Either;
+
+$foo = 1;
+$either = Right::unit($foo)->bind(function($val) {
+    return Left::unit($val + 1);
+})->left(function($val) {
+    return Right::unit($val + 1);
+})->left(function($val) {
+    // not executed
+    return Right::unit($val + 1);
+});
+echo $either->get(); // 3
+```
