@@ -9,6 +9,4 @@ interface Monad
 
 	public function bind($callable);
 
-	public function get();
-
 }

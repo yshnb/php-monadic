@@ -3,6 +3,15 @@ library for monad pattern in PHP
 
 ## usage
 
+this library implements below type (class)
+
+- Identity
+- Maybe
+- Either
+- ListLike
+
+### Identity
+
 ### Maybe
 ```
 <?php
@@ -39,3 +48,23 @@ $either = Right::unit($foo)->bind(function($val) {
 });
 echo $either->get(); // 3
 ```
+
+### ListLike
+
+ListLike represents list type (class). List is a reserved word in PHP.
+
+```
+<?php
+
+use Monadic\ListLike;
+
+$listLike = ListLike::unit(1,2,3);
+$listLike = $listLike->bind(function($val) {
+    return ListLike::unit($val * 2);
+});
+echo $listLike[0]; // 3
+echo $listLike[1]; // 4
+echo $listLike[2]; // 6 
+
+```
+
