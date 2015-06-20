@@ -9,7 +9,7 @@ library for monad pattern in PHP
 
 use Monadic\Maybe;
 
-$someValue = 1;
+$foo = 1;
 $maybe = Maybe::unit($foo)->bind(function($val) {
     return Maybe::unit($val + 1);
 });
