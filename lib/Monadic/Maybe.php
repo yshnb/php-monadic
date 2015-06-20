@@ -7,7 +7,7 @@ use Monadic\Maybe\Nothing;
 
 abstract class Maybe extends Identity implements Monad, Functor
 {
-	static public function unit($value)
+	static public function unit($value = null)
 	{
 		if (isset($value)) {
 			return new Just($value);

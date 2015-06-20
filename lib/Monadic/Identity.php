@@ -4,7 +4,7 @@ namespace Monadic;
 
 class Identity implements Monad, Functor
 {
-	private $value;
+	protected $value;
 
 	static public function unit($value)
 	{
