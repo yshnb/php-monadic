@@ -1,5 +1,6 @@
 # php-monadic
-library for monad pattern in PHP
+
+library for monad pattern in PHP.
 
 ## type
 
@@ -8,9 +9,19 @@ this library implements below type (class)
 - Identity
 - Maybe
 - Either
-- ListLike
+- ListLike(List)
 
-## usage
+## Usage
+
+### Install
+
+you can install from [packagist.org](https://packagist.org/).
+
+```
+composer require yshnb/php-monadic:dev-master
+```
+
+## Examples
 
 ### Identity
 
@@ -82,7 +93,7 @@ $listLike = $listLike->bind(function($val) {
 });
 echo $listLike[0]; // 3
 echo $listLike[1]; // 4
-echo $listLike[2]; // 6 
+echo $listLike[2]; // 6
 
 ```
 
