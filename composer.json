@@ -1,6 +1,7 @@
 {
     "name": "yshnb/php-monadic",
     "description": "Monadic type programming in PHP",
+    "license": "MIT",
     "authors": [
         {
             "name": "Yoshinobu Wakamatsu",
