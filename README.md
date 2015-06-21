@@ -30,7 +30,7 @@ Identity is a monad type, which simply wrap any value.
 ```
 <?php
 
-use Monadic\Identity;
+use Monadic\Type\Identity;
 
 $foo = 1;
 $identity = Identity::unit($foo)->bind(function($val) {
@@ -44,7 +44,7 @@ echo $identity->get(); // 2
 ```
 <?php
 
-use Monadic\Maybe;
+use Monadic\Type\Maybe;
 
 $foo = 1;
 $maybe = Maybe::unit($foo)->bind(function($val) {
@@ -63,8 +63,8 @@ echo $maybe->get(); // null
 ```
 <?php
 
-use Monadic\Either\Right;
-use Monadic\Either\Left;
+use Monadic\Type\Either\Right;
+use Monadic\Type\Either\Left;
 
 $foo = 1;
 $either = Right::unit($foo)->bind(function($val) {
@@ -85,7 +85,7 @@ ListLike represents list type (class). Because list is a reserved word in PHP, t
 ```
 <?php
 
-use Monadic\ListLike;
+use Monadic\Type\ListLike;
 
 $listLike = ListLike::unit(1,2,3);
 $listLike = $listLike->bind(function($val) {

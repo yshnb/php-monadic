@@ -2,14 +2,14 @@
 
 namespace Monadic;
 
-use Monadic\Identity;
+use Monadic\Type\Identity;
 
 class IdentityTest extends \PHPUNit_Framework_TestCase
 {
 	public function testUnit()
 	{
 		$identity = Identity::unit(1);
-		$this->assertInstanceOf("Monadic\Identity", $identity);
+		$this->assertInstanceOf("Monadic\Type\Identity", $identity);
 		$this->assertEquals(1, $identity->get());
 	}
 
@@ -20,7 +20,7 @@ class IdentityTest extends \PHPUNit_Framework_TestCase
 		})->bind(function($val) {
 			return Identity::unit($val * 2);
 		});
-		$this->assertInstanceOf("Monadic\Identity", $identity);
+		$this->assertInstanceOf("Monadic\Type\Identity", $identity);
 		$this->assertEquals(4, $identity->get());
 	}
 
@@ -31,7 +31,7 @@ class IdentityTest extends \PHPUNit_Framework_TestCase
 		})->fmap(function($val) {
 			return $val * 2;
 		});
-		$this->assertInstanceOf("Monadic\Identity", $identity);
+		$this->assertInstanceOf("Monadic\Type\Identity", $identity);
 		$this->assertEquals(4, $identity->get());
 	}
 }

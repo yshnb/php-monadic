@@ -1,8 +1,8 @@
 <?php
 
-namespace Monadic\Either;
+namespace Monadic\Type\Either;
 
-use Monadic\Either;
+use Monadic\Type\Either;
 
 final class Left extends Either
 {

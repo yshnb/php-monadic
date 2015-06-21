@@ -1,6 +1,9 @@
 <?php
 
-namespace Monadic;
+namespace Monadic\Type;
+
+use Monadic\TypeInterface\Functor;
+use Monadic\TypeInterface\Monad;
 
 class Identity implements Monad, Functor
 {

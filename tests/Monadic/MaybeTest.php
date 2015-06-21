@@ -2,16 +2,16 @@
 
 namespace Monadic;
 
-use Monadic\Maybe;
-use Monadic\Maybe\Nothing;
+use Monadic\Type\Maybe;
+use Monadic\Type\Maybe\Nothing;
 
 class MaybeTest extends \PHPUnit_Framework_TestCase
 {
 	public function testUnit()
 	{
 		$maybe = Maybe::unit(1);
-		$this->assertInstanceOf("Monadic\Maybe", $maybe);
-		$this->assertInstanceOf("Monadic\Maybe\Just", $maybe);
+		$this->assertInstanceOf("Monadic\Type\Maybe", $maybe);
+		$this->assertInstanceOf("Monadic\Type\Maybe\Just", $maybe);
 		$this->assertEquals(1, $maybe->get());
 	}
 
@@ -22,7 +22,7 @@ class MaybeTest extends \PHPUnit_Framework_TestCase
 		})->bind(function($val) {
 			return Maybe::unit($val * 2);
 		});
-		$this->assertInstanceOf("Monadic\Maybe\Just", $maybe);
+		$this->assertInstanceOf("Monadic\Type\Maybe\Just", $maybe);
 		$this->assertEquals(4, $maybe->get());
 	}
 
@@ -34,7 +34,7 @@ class MaybeTest extends \PHPUnit_Framework_TestCase
 			$this->fail("this method must not be executed.");
 			return Nothing::unit();
 		});
-		$this->assertInstanceOf("Monadic\Maybe\Nothing", $maybe);
+		$this->assertInstanceOf("Monadic\Type\Maybe\Nothing", $maybe);
 		$this->assertNull($maybe->get());
 	}
 
@@ -46,7 +46,7 @@ class MaybeTest extends \PHPUnit_Framework_TestCase
 			$this->fail("this method must not be executed.");
 			return null;
 		});
-		$this->assertInstanceOf("Monadic\Maybe\Nothing", $maybe);
+		$this->assertInstanceOf("Monadic\Type\Maybe\Nothing", $maybe);
 		$this->assertNull($maybe->get());
 	}
 }

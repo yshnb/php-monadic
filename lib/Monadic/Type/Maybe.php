@@ -1,9 +1,12 @@
 <?php
 
-namespace Monadic;
+namespace Monadic\Type;
 
-use Monadic\Maybe\Just;
-use Monadic\Maybe\Nothing;
+use Monadic\Type\Maybe\Just;
+use Monadic\Type\Maybe\Nothing;
+
+use Monadic\TypeInterface\Functor;
+use Monadic\TypeInterface\Monad;
 
 abstract class Maybe extends Identity implements Monad, Functor
 {

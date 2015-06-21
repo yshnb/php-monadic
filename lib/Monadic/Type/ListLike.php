@@ -1,22 +1,34 @@
 <?php
 
-namespace Monadic;
+namespace Monadic\Type;
 
-use Monadic\Identity;
+use Monadic\Type\Identity;
 
-class ListLike extends Identity implements Monad, Functor, Monoid, \ArrayAccess, \Iterator
+use Monadic\TypeInterface\Functor;
+use Monadic\TypeInterface\Monad;
+use Monadic\TypeInterface\Monoid;
+use Monadic\TypeInterface\Group;
+use Monadic\TypeInterface\Equivalence;
+
+class ListLike extends Identity implements Monad, Functor, Monoid, Group, Equivalence, \ArrayAccess, \Iterator
 {
 	private $position;
+
+	private $polarity; // positive or negative
 
 	static public function unit($value = null)
 	{
 		// to apply multiple parameters, create object with ReflectionClass
 		$args = func_get_args();
-		return (new \ReflectionClass("Monadic\ListLike"))->newInstanceArgs($args);
+		return (new \ReflectionClass("Monadic\Type\ListLike"))->newInstanceArgs($args);
 	}
 
-	static public function add(Monoid $a, Monoid $b)
+	static public function add($a, $b)
 	{
+		if ($a->isInverse($b)) {
+			return ListLike::unit();
+		}
+
 		$flatten = array();
 		foreach ($a as $elem) {
 			array_push($flatten, $elem);
@@ -27,7 +39,12 @@ class ListLike extends Identity implements Monad, Functor, Monoid, \ArrayAccess,
 		}
 		$b->rewind();
 
-		return (new \ReflectionClass("Monadic\ListLike"))->newInstanceArgs($flatten);
+		return (new \ReflectionClass("Monadic\Type\ListLike"))->newInstanceArgs($flatten);
+	}
+
+	static public function equal($a, $b)
+	{
+		return $a->equals($b);
 	}
 
 	public function __construct($value = null)
@@ -37,6 +54,7 @@ class ListLike extends Identity implements Monad, Functor, Monoid, \ArrayAccess,
 		} else {
 			$this->value = array();
 		}
+		$this->polarity = true;
 		$this->rewind();
 	}
 
@@ -70,6 +88,24 @@ class ListLike extends Identity implements Monad, Functor, Monoid, \ArrayAccess,
 	public function length()
 	{
 		return count($this->value);
+	}
+
+	public function equals($object)
+	{
+		return ($this == $object);
+	}
+
+	public function inverse()
+	{
+		$this->polarity = !$this->polarity;
+
+		return $this;
+	}
+
+	public function isInverse($object)
+	{
+		$_object = clone $object;
+		return $this->equals($_object->inverse());
 	}
 
 	public function offsetSet($offset, $value)

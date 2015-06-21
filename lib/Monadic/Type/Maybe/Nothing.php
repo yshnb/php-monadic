@@ -1,8 +1,8 @@
 <?php
 
-namespace Monadic\Maybe;
+namespace Monadic\Type\Maybe;
 
-use Monadic\Maybe;
+use Monadic\Type\Maybe;
 
 final class Nothing extends Maybe
 {

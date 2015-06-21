@@ -2,20 +2,20 @@
 
 namespace Monadic;
 
-use Monadic\ListLike;
+use Monadic\Type\ListLike;
 
 class ListLikeTest extends \PHPUnit_Framework_TestCase
 {
 	public function testUnit()
 	{
 		$listLike = ListLike::unit(1,2,3);
-		$this->assertInstanceOf("Monadic\ListLike", $listLike);
+		$this->assertInstanceOf("Monadic\Type\ListLike", $listLike);
 	}
 
 	public function testBind()
 	{
 		$listLike = ListLike::unit(1,2,3);
-		$this->assertInstanceOf("Monadic\ListLike", $listLike);
+		$this->assertInstanceOf("Monadic\Type\ListLike", $listLike);
 		$listLike = $listLike->bind(function($val) {
 			return ListLike::unit($val,$val,$val);
 		});
@@ -27,7 +27,7 @@ class ListLikeTest extends \PHPUnit_Framework_TestCase
 	public function testBind2()
 	{
 		$listLike = ListLike::unit(1,2,3);
-		$this->assertInstanceOf("Monadic\ListLike", $listLike);
+		$this->assertInstanceOf("Monadic\Type\ListLike", $listLike);
 		$listLike = $listLike->bind(function($val) {
 			return ListLike::unit($val * 2);
 		});
@@ -39,7 +39,7 @@ class ListLikeTest extends \PHPUnit_Framework_TestCase
 	public function testFmap()
 	{
 		$listLike = ListLike::unit(1,2,3);
-		$this->assertInstanceOf("Monadic\ListLike", $listLike);
+		$this->assertInstanceOf("Monadic\Type\ListLike", $listLike);
 		$listLike = $listLike->fmap(function($val) {
 			return $val * 2;
 		});
@@ -54,7 +54,7 @@ class ListLikeTest extends \PHPUnit_Framework_TestCase
 		$b = ListLike::unit(4,5,6);
 		$result = ListLike::add($a, $b);
 
-		$this->assertInstanceOf("Monadic\ListLike", $result);
+		$this->assertInstanceOf("Monadic\Type\ListLike", $result);
 	}
 
 	public function testMonoidIdentityRule()
@@ -81,5 +81,15 @@ class ListLikeTest extends \PHPUnit_Framework_TestCase
 		$right_associative = ListLike::add($a, ListLike::add($b, $c));
 
 		$this->assertEquals($left_associative, $right_associative);
+	}
+
+	public function testGroupInverseRule()
+	{
+		$a = ListLike::unit(1,2,3);
+		$b = clone $a;
+		$b->inverse();
+
+		$result = ListLike::add($a, $b);
+		$this->assertEquals(ListLike::unit(), $result);
 	}
 }

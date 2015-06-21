@@ -1,9 +1,12 @@
 <?php
 
-namespace Monadic;
+namespace Monadic\Type;
 
-use Monadic\Either\Left;
-use Monadic\Either\Right;
+use Monadic\Type\Either\Left;
+use Monadic\Type\Either\Right;
+
+use Monadic\TypeInterface\Functor;
+use Monadic\TypeInterface\Monad;
 
 abstract class Either implements Monad, Functor
 {

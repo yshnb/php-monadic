@@ -2,25 +2,25 @@
 
 namespace Monadic;
 
-use Monadic\Either;
-use Monadic\Either\Left;
-use Monadic\Either\Right;
+use Monadic\Type\Either;
+use Monadic\Type\Either\Left;
+use Monadic\Type\Either\Right;
 
 class EitherTest extends \PHPUnit_Framework_TestCase
 {
 	public function testRight()
 	{
 		$either = Right::unit(1);
-		$this->assertInstanceOf("Monadic\Either", $either);
-		$this->assertInstanceOf("Monadic\Either\Right", $either);
+		$this->assertInstanceOf("Monadic\Type\Either", $either);
+		$this->assertInstanceOf("Monadic\Type\Either\Right", $either);
 		$this->assertEquals(1, $either->get());
 	}
 
 	public function testLeft()
 	{
 		$either = Left::unit(1);
-		$this->assertInstanceOf("Monadic\Either", $either);
-		$this->assertInstanceOf("Monadic\Either\Left", $either);
+		$this->assertInstanceOf("Monadic\Type\Either", $either);
+		$this->assertInstanceOf("Monadic\Type\Either\Left", $either);
 		$this->assertEquals(1, $either->get());
 	}
 
@@ -36,8 +36,8 @@ class EitherTest extends \PHPUnit_Framework_TestCase
 			$this->fail("this method must not be executed.");
 			return Right::unit($val + 1);
 		});
-		$this->assertInstanceOf("Monadic\Either", $right);
-		$this->assertInstanceOf("Monadic\Either\Right", $right);
+		$this->assertInstanceOf("Monadic\Type\Either", $right);
+		$this->assertInstanceOf("Monadic\Type\Either\Right", $right);
 		$this->assertEquals(3, $right->get());
 	}
 
