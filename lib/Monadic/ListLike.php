@@ -4,7 +4,7 @@ namespace Monadic;
 
 use Monadic\Identity;
 
-class ListLike extends Identity implements Monad, Functor, \ArrayAccess, \Iterator
+class ListLike extends Identity implements Monad, Functor, Monoid, \ArrayAccess, \Iterator
 {
 	private $position;
 
@@ -15,9 +15,29 @@ class ListLike extends Identity implements Monad, Functor, \ArrayAccess, \Iterat
 		return (new \ReflectionClass("Monadic\ListLike"))->newInstanceArgs($args);
 	}
 
+	static public function add(Monoid $a, Monoid $b)
+	{
+		$flatten = array();
+		foreach ($a as $elem) {
+			array_push($flatten, $elem);
+		}
+		$a->rewind();
+		foreach ($b as $elem) {
+			array_push($flatten, $elem);
+		}
+		$b->rewind();
+
+		return (new \ReflectionClass("Monadic\ListLike"))->newInstanceArgs($flatten);
+	}
+
 	public function __construct($value = null)
 	{
-		$this->value = func_get_args();
+		if (isset($value)) {
+			$this->value = func_get_args();
+		} else {
+			$this->value = array();
+		}
+		$this->rewind();
 	}
 
 	public function bind($callable)
@@ -39,8 +59,17 @@ class ListLike extends Identity implements Monad, Functor, \ArrayAccess, \Iterat
 			array_push($preFlat, $callable($elem));
 		}
 		
-		$reflect = new \ReflectionClass("Monadic\ListLike");
-		return $reflect->newInstanceArgs($preFlat);
+		return (new \ReflectionClass("Monadic\ListLike"))->newInstanceArgs($preFlat);
+	}
+
+	public function isIdentity()
+	{
+		return ($this->count === 0);
+	}
+
+	public function length()
+	{
+		return count($this->value);
 	}
 
 	public function offsetSet($offset, $value)

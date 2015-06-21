@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Monadic;
+namespace Monadic;
 
 use Monadic\Maybe;
 use Monadic\Maybe\Nothing;
