@@ -40,4 +40,28 @@ class EitherTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf("Monadic\Either\Right", $right);
 		$this->assertEquals(3, $right->get());
 	}
+
+	public function testFmapRight()
+	{
+		$either = Right::unit(2);
+		$either->fmapRight(function($val) {
+			return $val * 2;
+		})->fmapLeft(function($val) {
+			$this->fail("this method must not be called.");
+			return null;
+		});
+		$this->assertEquals(4, $either->get());
+	}
+
+	public function testFmapLeft()
+	{
+		$either = Left::unit(2);
+		$either->fmapLeft(function($val) {
+			return $val * 2;
+		})->fmapRight(function($val) {
+			$this->fail("this method must not be called.");
+			return null;
+		});
+		$this->assertEquals(4, $either->get());
+	}
 }

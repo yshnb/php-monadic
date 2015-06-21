@@ -1,7 +1,7 @@
 # php-monadic
 library for monad pattern in PHP
 
-## usage
+## type
 
 this library implements below type (class)
 
@@ -10,9 +10,26 @@ this library implements below type (class)
 - Either
 - ListLike
 
+## usage
+
 ### Identity
 
+Identity is a monad type, which simply wrap any value.
+
+```
+<?php
+
+use Monadic\Identity;
+
+$foo = 1;
+$identity = Identity::unit($foo)->bind(function($val) {
+    return Identity::unit($val * 2);
+});
+echo $identity->get(); // 2
+```
+
 ### Maybe
+
 ```
 <?php
 
@@ -35,7 +52,8 @@ echo $maybe->get(); // null
 ```
 <?php
 
-use Monadic\Either;
+use Monadic\Either\Right;
+use Monadic\Either\Left;
 
 $foo = 1;
 $either = Right::unit($foo)->bind(function($val) {
@@ -51,7 +69,7 @@ echo $either->get(); // 3
 
 ### ListLike
 
-ListLike represents list type (class). List is a reserved word in PHP.
+ListLike represents list type (class). Because list is a reserved word in PHP, this type is called ListLike.
 
 ```
 <?php
