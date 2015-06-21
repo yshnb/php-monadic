@@ -59,12 +59,12 @@ class ListLike extends Identity implements Monad, Functor, Monoid, \ArrayAccess,
 			array_push($preFlat, $callable($elem));
 		}
 		
-		return (new \ReflectionClass("Monadic\ListLike"))->newInstanceArgs($preFlat);
+		return (new \ReflectionClass($this))->newInstanceArgs($preFlat);
 	}
 
 	public function isIdentity()
 	{
-		return ($this->count === 0);
+		return ($this->length() === 0);
 	}
 
 	public function length()

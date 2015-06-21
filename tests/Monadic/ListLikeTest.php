@@ -61,6 +61,8 @@ class ListLikeTest extends \PHPUnit_Framework_TestCase
 	{
 		$element = ListLike::unit(1,2,3);
 		$identity = ListLike::unit();
+		$this->assertFalse($element->isIdentity());
+		$this->assertTrue($identity->isIdentity());
 
 		$element_add = ListLike::add($element, $identity);
 		$this->assertEquals($element_add, $element);
